@@ -3,6 +3,8 @@ import { IUser } from '../interfaces/IUser';
 import { Avatar } from './Avatar';
 import { Comment } from './Comment';
 import styles from './Post.module.css';
+import { format, formatDistanceToNow } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
 type PostProps = {
     author: IUser;
@@ -11,6 +13,15 @@ type PostProps = {
 }
 
 export function Post({ author, content, publishedAt }: PostProps) {
+    const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH'h'mm",{
+        locale: ptBR,
+    })
+
+    const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
+        locale: ptBR,
+        addSuffix: true
+    })
+
     return (
         <article className={styles.post}>
             <header>
@@ -22,11 +33,23 @@ export function Post({ author, content, publishedAt }: PostProps) {
                     </div>
                 </div>
 
-                <time title="18 de Julho às 20h18" dateTime="2023-07-18 20:18:32">Publicado há 1h</time>
+                <time
+                    title={publishedDateFormatted}
+                    dateTime={publishedAt.toISOString()}>
+                    {publishedDateRelativeToNow}
+                </time>
             </header>
 
             <div className={styles.content}>
-
+                {
+                    content.map(line => {
+                        if(line.type === 'paragraph') {
+                            return <p>{line.content}</p>
+                        } else if (line.type === 'link') {
+                            return <p><a href={line.url} target='_blank'>{line.content}</a></p>
+                        }
+                    })
+                }
             </div>
 
             <form className={styles.commentForm}>
