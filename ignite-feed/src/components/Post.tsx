@@ -22,6 +22,10 @@ export function Post({ author, content, publishedAt }: PostProps) {
         addSuffix: true
     })
 
+    function handleCreateNewComment() {
+        event?.preventDefault();
+    }
+
     return (
         <article className={styles.post}>
             <header>
@@ -52,7 +56,7 @@ export function Post({ author, content, publishedAt }: PostProps) {
                 }
             </div>
 
-            <form className={styles.commentForm}>
+            <form className={styles.commentForm} onSubmit={handleCreateNewComment}>
                 <strong>Deixe seu feedback</strong>
 
                 <textarea placeholder='Deixe um comentário' />
