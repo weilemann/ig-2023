@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { IContent } from '../interfaces/IContent';
 import { IUser } from '../interfaces/IUser';
 import { Avatar } from './Avatar';
@@ -13,7 +14,9 @@ type PostProps = {
 }
 
 export function Post({ author, content, publishedAt }: PostProps) {
-    const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH'h'mm",{
+    const [comments, setComments] = useState<number[]>([1, 2]);
+
+    const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH'h'mm", {
         locale: ptBR,
     })
 
@@ -24,6 +27,8 @@ export function Post({ author, content, publishedAt }: PostProps) {
 
     function handleCreateNewComment() {
         event?.preventDefault();
+
+        setComments([...comments, comments.length + 1])
     }
 
     return (
@@ -47,7 +52,7 @@ export function Post({ author, content, publishedAt }: PostProps) {
             <div className={styles.content}>
                 {
                     content.map(line => {
-                        if(line.type === 'paragraph') {
+                        if (line.type === 'paragraph') {
                             return <p>{line.content}</p>
                         } else if (line.type === 'link') {
                             return <p><a href={line.url} target='_blank'>{line.content}</a></p>
@@ -67,9 +72,15 @@ export function Post({ author, content, publishedAt }: PostProps) {
             </form>
 
             <div className={styles.commentList}>
-                <Comment />
-                <Comment />
-                <Comment />
+                {
+                    comments.map(comment => {
+                        return (
+                            <>
+                                <Comment />
+                            </>
+                        )
+                    })
+                }
             </div>
         </article>
     )
