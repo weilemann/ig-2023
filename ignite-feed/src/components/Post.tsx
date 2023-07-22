@@ -14,7 +14,8 @@ type PostProps = {
 }
 
 export function Post({ author, content, publishedAt }: PostProps) {
-    const [comments, setComments] = useState<number[]>([1, 2]);
+    const [comments, setComments] = useState<string[]>([]);
+    const [newCommentText, setNewCommentText] = useState<string>('')
 
     const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH'h'mm", {
         locale: ptBR,
@@ -25,10 +26,17 @@ export function Post({ author, content, publishedAt }: PostProps) {
         addSuffix: true
     })
 
-    function handleCreateNewComment() {
-        event?.preventDefault();
+    function handleCreateNewComment(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
 
-        setComments([...comments, comments.length + 1])
+        setComments([...comments, newCommentText])
+        setNewCommentText("");
+    }
+
+    function handleNewCommentChange(e: React.FormEvent<HTMLTextAreaElement>) {
+        e.preventDefault();
+
+        setNewCommentText(e.currentTarget.value)
     }
 
     return (
@@ -64,7 +72,11 @@ export function Post({ author, content, publishedAt }: PostProps) {
             <form className={styles.commentForm} onSubmit={handleCreateNewComment}>
                 <strong>Deixe seu feedback</strong>
 
-                <textarea placeholder='Deixe um comentário' />
+                <textarea
+                    placeholder='Deixe um comentário'
+                    value={newCommentText}
+                    onChange={handleNewCommentChange}
+                />
 
                 <footer>
                     <button type="submit">Publicar</button>
@@ -76,7 +88,7 @@ export function Post({ author, content, publishedAt }: PostProps) {
                     comments.map(comment => {
                         return (
                             <>
-                                <Comment />
+                                <Comment content={comment} />
                             </>
                         )
                     })
