@@ -15,7 +15,7 @@ export function Comment({content, onDeleteComment}: CommentProps) {
         onDeleteComment(content)
     }
 
-    function handleLikeComment() {
+    function handleCheerComment() {
         setCheersCount((prevState) => prevState + 1)
     }
 
@@ -40,7 +40,7 @@ export function Comment({content, onDeleteComment}: CommentProps) {
                 </div>
 
                 <footer>
-                    <button onClick={handleLikeComment}>
+                    <button onClick={handleCheerComment}>
                         <HandsClapping />
                         Aplaudir <span>{cheersCount}</span>
                     </button>
@@ -48,4 +48,4 @@ export function Comment({content, onDeleteComment}: CommentProps) {
             </div>
         </div>
     )
-}
+}   

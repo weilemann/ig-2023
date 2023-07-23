@@ -33,12 +33,12 @@ export function Post({ author, content, publishedAt }: PostProps) {
     setNewCommentText("");
   }
 
-  function handleNewCommentChange(e: React.FormEvent<HTMLTextAreaElement>) {
+  function handleNewCommentChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     e.currentTarget.setCustomValidity("")
     setNewCommentText(e.currentTarget.value)
   }
 
-  function handleNewCommentInvalid(e: React.FormEvent<HTMLTextAreaElement>) {
+  function handleNewCommentInvalid(e: React.InvalidEvent<HTMLTextAreaElement>) {
     e.currentTarget.setCustomValidity("Esse campo é obrigatório!")
   }
 
@@ -54,7 +54,7 @@ export function Post({ author, content, publishedAt }: PostProps) {
     <article className={styles.post}>
       <header>
         <div className={styles.author}>
-          <Avatar src={author.avatarUrl} />
+          <Avatar src={author.avatarUrl} alt="" />
           <div className={styles.authorInfo}>
             <strong>{author.name}</strong>
             <span>{author.role}</span>

@@ -1,5 +1,5 @@
 export interface IContent {
-    type: string,
+    type: 'paragraph' | 'link',
     content: string;
     url?: string;
 }
