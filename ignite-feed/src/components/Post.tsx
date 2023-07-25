@@ -1,21 +1,19 @@
+import { format, formatDistanceToNow } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 import { useState } from 'react';
-import { IContent } from '../interfaces/IContent';
-import { IUser } from '../interfaces/IUser';
 import { Avatar } from './Avatar';
 import { Comment } from './Comment';
 import styles from './Post.module.css';
-import { format, formatDistanceToNow } from 'date-fns';
-import { ptBR } from 'date-fns/locale';
+import { IPost } from '../interfaces/IPost';
 
 type PostProps = {
-  author: IUser;
-  content: IContent[];
-  publishedAt: Date;
+  post: IPost;
 }
 
-export function Post({ author, content, publishedAt }: PostProps) {
+export function Post({ post }: PostProps) {
   const [comments, setComments] = useState<string[]>([]);
   const [newCommentText, setNewCommentText] = useState<string>('')
+  const { author, content, publishedAt } = post;
 
   const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH'h'mm", {
     locale: ptBR,
