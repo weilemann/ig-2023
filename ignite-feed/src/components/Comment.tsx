@@ -8,7 +8,7 @@ type CommentProps = {
     onDeleteComment: (comment: string) => void;
 }
 
-export function Comment({content, onDeleteComment}: CommentProps) {
+export function Comment({ content, onDeleteComment }: CommentProps) {
     const [cheersCount, setCheersCount] = useState(0);
 
     function handleDeleteComment() {
@@ -21,7 +21,10 @@ export function Comment({content, onDeleteComment}: CommentProps) {
 
     return (
         <div className={styles.comment}>
-            <Avatar src="https://github.com/weilemann.png" hasBorder={false} />
+            <Avatar
+                src="https://github.com/weilemann.png"
+                hasBorder={false}
+            />
 
             <div className={styles.commentBox}>
                 <div className={styles.commentContent}>
