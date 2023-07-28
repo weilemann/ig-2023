@@ -37,6 +37,7 @@ const BaseInput = styled.input`
   font-size: 1.125rem;
   font-size: 0 0.5rem;
   color: ${(props) => props.theme['gray-100']};
+  text-align: center;
 
   &::placeholder {
     color: ${(props) => props.theme['gray-500']};
@@ -50,11 +51,14 @@ const BaseInput = styled.input`
 
 export const TaskInput = styled(BaseInput)`
   flex: 1;
+
+  &::-webkit-calendar-picker-indicator {
+    display: none !important;
+  }
 `
 
 export const MinutesAmountInput = styled(BaseInput)`
   width: 4rem;
-  text-align: center;
 `
 
 export const CountdownContainer = styled.div`
